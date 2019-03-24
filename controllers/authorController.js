@@ -1,17 +1,20 @@
 var Author = require('../models/author')
 var async = require('async')
 var Book = require('../models/book')
+var debug = require('debug')('author');
 
 const { body, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
 // Display list of all Authors.
 exports.author_list = function (req, res, next) {
-
+    debug('author_list:loading');
     Author.find()
         .sort([['family_name', 'ascending']])
         .exec(function (err, list_authors) {
-            if (err) { return next(err); }
+            if (err) { 
+                debug('author_list: ' + err);
+                return next(err); }
             // Successful, so render.
             res.render('author_list', { title: 'Author List', author_list: list_authors });
         })
@@ -20,7 +23,7 @@ exports.author_list = function (req, res, next) {
 
 // Display detail page for a specific Author.
 exports.author_detail = function (req, res, next) {
-
+    debug('author_detail:loading');
     async.parallel({
         author: function (callback) {
             Author.findById(req.params.id)
@@ -31,7 +34,10 @@ exports.author_detail = function (req, res, next) {
                 .exec(callback)
         },
     }, function (err, results) {
-        if (err) { return next(err); } // Error in API usage.
+        if (err) { 
+            debug('author_detail: ' + err )
+            return next(err); 
+        } // Error in API usage.
         if (results.author == null) { // No results.
             var err = new Error('Author not found');
             err.status = 404;
