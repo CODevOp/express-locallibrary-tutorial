@@ -1,3 +1,7 @@
+# Cloned after losing my application
+I cloned this website after working through the tutorial to Module 7. My laptop was having an issue and we thought it might help to delete my profile. 
+In the future I will use github.com to protect my tutorial and learning progress. To get started with a new repository follow the cheatsheet provided by [Nathaniel Avery at www.notyourdadsit.com](http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code)
+
 # express-locallibrary-tutorial
 Tutorial "Local Library" website written in in Node/Express.
 
